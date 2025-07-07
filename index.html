@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Broken Altar: Scripture-guided Prayer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000"> <!-- Added this line -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Broken Altar">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <meta name="description" content="Broken Altar: A scripture-guided prayer application.">
+</head>
+<body>
+    <div class="app-banner-container">
+        <img src="images/red_altar_banner.svg" alt="Broken Altar Banner" id="app-banner-svg">
+    </div>
+
+    <div id="auth-container">
+        <button id="login-button" class="auth-button">Login with Google</button>
+        <span id="user-status" style="margin-left: 10px;"></span>
+        <em id="login-prompt-message" style="font-size: 0.9em; color: #555; margin-left: 5px; display: none;"></em>
+        <button id="settings-button" class="action-button" style="display:none; margin-left: 10px; float: right;">Settings</button>
+        <button id="logout-button" class="action-button" style="display:none; margin-left: 10px;">Logout</button>
+    </div>
+
+    <!-- Subheader for Attribution -->
+    <h2 id="prayer-method-subheader">A Method for Prayer by Matthew Henry</h2>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span id="close-settings-modal-button" class="close-button">&times;</span>
+            <h2>Settings</h2>
+
+            <!-- Mode Selection -->
+            <div id="mode-selection-container" style="margin-bottom: 15px;">
+                <h4>Prayer Mode</h4>
+                <label>
+                    <input type="radio" name="prayerMode" id="mode-method-for-prayer" value="method_for_prayer" checked>
+                    Method for Prayer (Matthew Henry)
+                </label><br>
+                <label style="margin-top: 5px; display: inline-block;">
+                    <input type="radio" name="prayerMode" id="mode-lords-prayer" value="lords_prayer">
+                    The Lord's Prayer
+                </label>
+            </div>
+
+            <hr style="border: 0; height: 1px; background: #ccc; margin: 20px 0;">
+
+            <!-- Category Settings (conditionally interactive) -->
+            <div id="category-settings-section">
+                <h4>Prayer Category Settings</h4>
+                <p id="category-settings-instruction" style="font-size: 0.9em; color: #555;">
+                    Check categories to include. Drag to reorder.
+                </p>
+                <ul id="category-settings-list" style="list-style-type: none; padding: 0; margin-top: 10px;">
+                    <!-- Category settings will be populated here by app.js -->
+                </ul>
+            </div>
+
+            <hr style="border: 0; height: 1px; background: #ccc; margin: 20px 0;">
+
+            <!-- Audio Playback Settings -->
+            <div id="audio-playback-settings-section">
+                <h4>Audio Playback</h4>
+                <input type="checkbox" id="keep-screen-awake-toggle" name="keep-screen-awake">
+                <label for="keep-screen-awake-toggle">Keep screen awake during audio playback</label>
+                <p style="font-size: 0.8em; color: #666; margin-top: 5px;">(Note: Enabling this may consume more battery.)</p>
+
+                <div style="margin-top: 15px;">
+                    <label for="pause-duration-slider">Pause between prayer segments: <span id="pause-duration-value">10</span> seconds</label>
+                    <input type="range" id="pause-duration-slider" name="pause-duration" min="0" max="60" value="10" step="1" style="width: 100%; margin-top: 5px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8em; color: #666;">
+                        <span>0s</span><span>60s</span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <input type="checkbox" id="play-bell-sound-toggle" name="play-bell-sound" checked>
+                    <label for="play-bell-sound-toggle">Play bell sound between segments</label>
+                </div>
+            </div>
+
+            <hr style="border: 0; height: 1px; background: #ccc; margin: 20px 0;">
+
+            <div id="appearance-settings-section">
+                <h4>Appearance</h4>
+                <input type="checkbox" id="theme-toggle" name="theme-toggle">
+                <label for="theme-toggle">Dark Mode</label>
+            </div>
+            <button id="save-settings-button" class="action-button primary-action" style="margin-top: 20px;">Save Settings</button>
+            <button id="cancel-settings-button" class="action-button" style="margin-top: 20px; margin-left: 10px;">Cancel</button>
+        </div>
+    </div>
+
+    <div id="prayer-container"> <!-- This was the original prayer-container, now wrapped by prayer-container-wrapper in some versions -->
+        <!-- Prayer categories will be dynamically inserted here by app.js -->
+        <!-- Example structure for Back/Refresh/Reflect buttons (to be generated by app.js for each category) -->
+        <div class="category-button-container" style="margin-bottom: 15px;"> <!-- Added margin-bottom for visual separation if multiple examples were shown -->
+            <button class="action-button back-button">Back</button>
+            <button class="action-button rerandomize-button">Refresh</button>
+            <button class="action-button reflection-button">Reflect</button>
+        </div>
+        <!-- End of example structure -->
+    </div>
+
+    <div id="prayer-actions-container" style="margin-top: 20px;">
+        <button id="generate-all-button" class="action-button primary-action">Refresh Full Prayer</button>
+
+        <button id="save-prayer-button" class="action-button save-action" style="display:none; width: 100%;">Amen (Save Prayer)</button>
+
+        <!-- Audio Controls Moved Here -->
+        <div id="audio-controls"> <!-- Initially hidden via CSS, app.js will show it when user is logged in -->
+            <button id="playAudioBtn" class="action-button">Listen and Pray</button>
+            <button id="pauseAudioBtn" class="action-button" style="display:none;">Pause</button>
+            <button id="stopAudioBtn" class="action-button" style="display:none;">Stop</button>
+            <div id="tts-status" class="tts-status-message" style="margin-top: 8px; font-size: 0.9em; color: #333;"></div> <!-- For TTS status messages -->
+            <div id="currentReadingText" style="margin-top: 5px; font-style: italic; color: #555;"></div> <!-- For the text being read -->
+            <!-- The screen awake toggle was conceptually here or near here, it's now moved to settings modal -->
+            <!-- <div id="audio-options" style="margin-top: 10px; text-align: center;">
+                <input type="checkbox" id="keep-screen-awake-toggle" name="keep-screen-awake">
+                <label for="keep-screen-awake-toggle">Keep screen awake during audio playback</label>
+            </div> -->
+        </div>
+    </div>
+    
+    <div id="saved-prayers-section" style="margin-top: 30px;">
+        <h2 id="my-saved-prayers-heading">My Saved Prayers</h2>
+        <div id="calendar-container" style="margin-top: 15px; display:none;">
+            <div id="calendar-header">
+                <button id="prev-month-button">&lt; Prev</button>
+                <span id="current-month-year">Month Year</span>
+                <button id="next-month-button">Next &gt;</button>
+            </div>
+            <div id="calendar-grid" class="calendar">
+                <!-- Calendar days will be dynamically inserted here -->
+            </div>
+        </div>
+        <!-- Moved recalled-prayer-list-container to be a sibling -->
+        <div id="recalled-prayer-list-container" style="margin-top: 15px; margin-bottom:15px; display:none;">
+                <h4>Prayers for <span id="recalled-prayer-list-date"></span>:</h4>
+                <ul id="recalled-prayer-list"></ul>
+            </div>
+        <div id="recalled-prayer-container" style="margin-top: 15px; display:none;">
+            <h3>Prayer for <span id="recalled-prayer-date"></span></h3>
+            <div id="recalled-prayer-content"></div>
+            <button id="close-recalled-prayer-button" class="action-button">Close Prayer</button>
+        </div>
+    </div>
+    
+<div id="about-broken-altar">
+  <h3>Broken Altar</h3>
+  <p>The name Broken Altar is inspired by <em>The Altar</em> a <a href="https://www.poetryfoundation.org/poems/44358/the-altar" target="_blank" rel="noopener noreferrer">poem</a> by 17th-century Anglican priest George Herbert. In it, Herbert presents his heart as an altar that only God can make holy:</p>
+  <blockquote class="poem-quote">
+    <p>'A broken altar, Lord, thy servant rears,<br>
+    Made of a heart and cemented with tears.'</p>
+  </blockquote>
+  <p>These words express our central idea: That God does not require perfect offerings, but welcomes hearts surrendered to him in prayer.</p>
+</div>
+
+    <!-- Firebase SDKs - update to latest versions as desired -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics-compat.js"></script>
+
+    <script>
+        // IMPORTANT: Replace with your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBP_AfaNMXsY7eGtXj8oZqHTM1fF8KdN30",
+            authDomain: "method25.firebaseapp.com",
+            projectId: "method25",
+            storageBucket: "method25.firebasestorage.app",
+            messagingSenderId: "20430183483",
+            appId: "1:20430183483:web:3f6b8fe1acafb8c3d2101e",
+            measurementId: "G-Q6S44Y6Y8Z" // Optional
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script> <!-- Added SortableJS -->
+    <script src="crypto-utils.js"></script> <!-- Load crypto utilities -->
+    <script src="app.js"></script>
+
+    <!-- Scripture Modal -->
+    <div id="scripture-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span id="close-scripture-modal-button" class="close-button">&times;</span>
+            <h3 id="scripture-modal-title">Scripture</h3>
+            <div id="scripture-modal-body">Loading...</div>
+        </div>
+    </div>
+
+  <footer style="text-align: center; padding: 20px 10px; font-size: 0.8em; color: #555;">
+    <p>
+      Scripture quotations are from the ESV® Bible (The Holy Bible, English Standard Version®), © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. The ESV text may not be quoted in any publication made available to the public by a Creative Commons license. The ESV may not be translated into any other language.
+    </p>
+    <p>
+      Users may not copy or download more than 500 verses of the ESV Bible or more than one half of any book of the ESV Bible.
+    </p>
+  </footer>
+
+</body>
+</html>
