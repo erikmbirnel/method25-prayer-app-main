@@ -715,49 +715,287 @@ body {
   font-style: italic;
 }
 
-/* Dark Mode Overrides */
+/* Optimized Dark Mode */
 [data-theme="dark"] {
-    --background-primary: #1e1e1e;
-    --background-secondary: #2a2a2a;
-    --background-tertiary: #333333;
-    --background-modal: #383838;
-    --background-banner: #2a2a2a; /* Darker background for SVG if not using filter */
+    /* Rich Dark Backgrounds */
+    --background-primary: #0f1419;
+    --background-secondary: #1a202c;
+    --background-tertiary: #2d3748;
+    --background-modal: #1a202c;
+    --background-banner: #1a202c;
+    --background-card: #1e2533;
+    --background-gradient: linear-gradient(135deg, #0f1419 0%, #1a202c 50%, #2d3748 100%);
 
-    --text-primary: #e0e0e0;
-    --text-secondary: #b0b0b0;
-    --text-accent: #61dafb; /* Lighter blue for accent */
-    --text-on-button-primary: #e0e0e0;
-    --text-on-button-secondary: #e0e0e0;
-    --text-on-button-special: #e0e0e0;
-    --text-on-settings-button: #e0e0e0;
+    /* High Contrast Text */
+    --text-primary: #f7fafc;
+    --text-secondary: #e2e8f0;
+    --text-tertiary: #a0aec0;
+    --text-accent: #81e6d9;
+    --text-on-button-primary: #0f1419;
+    --text-on-button-secondary: #f7fafc;
+    --text-on-button-special: #f7fafc;
+    --text-on-settings-button: #f7fafc;
 
-    --border-primary: #555555;
-    --border-secondary: #444444;
-    --border-modal: #666666;
+    /* Subtle Borders */
+    --border-primary: #4a5568;
+    --border-secondary: #2d3748;
+    --border-modal: #4a5568;
+    --border-focus: #81e6d9;
 
-    --button-primary-bg: #007bff; /* Brighter blue for dark mode */
-    --button-primary-hover-bg: #0056b3;
-    --button-secondary-bg: #5a6268; 
-    --button-secondary-hover-bg: #494f54;
-    --button-special-red-bg: #C41E3A; /* Red can often stay, or be slightly desaturated */
-    --button-special-red-hover-bg: #A01729;
-    --button-settings-bg: #4f4f4f;
-    --button-settings-hover-bg: #5a5a5a;
-    --button-play-bg: #555;
-    --button-play-hover-bg: #777;
+    /* Vibrant Dark Mode Buttons */
+    --button-primary-bg: #38b2ac;
+    --button-primary-hover-bg: #319795;
+    --button-secondary-bg: #4a5568;
+    --button-secondary-hover-bg: #2d3748;
+    --button-special-red-bg: #f56565;
+    --button-special-red-hover-bg: #e53e3e;
+    --button-settings-bg: #2d3748;
+    --button-settings-hover-bg: #4a5568;
+    --button-play-bg: #1a202c;
+    --button-play-hover-bg: #2d3748;
 
-    --link-primary: #61dafb;
-    --link-hover: #82eaff;
+    /* Enhanced Links */
+    --link-primary: #81e6d9;
+    --link-hover: #b2f5ea;
 
-    --highlight-green: #3a703a; /* Darker green */
-    --highlight-yellow-border: #b8860b; /* Darker yellow */
-    --drag-handle-color: #888;
-    --subheader-color: #c0c0c0;
+    /* Rich Status Colors */
+    --highlight-green: #48bb78;
+    --highlight-green-border: #38a169;
+    --highlight-yellow-border: #ed8936;
+    --drag-handle-color: #a0aec0;
+    --subheader-color: #e2e8f0;
 
-    /* Example filter for the SVG banner in dark mode. This will need tuning. */
-    /* It tries to invert light areas and adjust colors. */
-    /* If the SVG background is #F7F6F0, this might make it dark. */
-    --svg-banner-filter: invert(0.9) hue-rotate(180deg) brightness(1.2) contrast(0.8);
+    /* Enhanced Shadows for Dark Mode */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+
+    /* Optimized SVG Filter */
+    --svg-banner-filter: brightness(0.8) contrast(1.2) hue-rotate(15deg);
+}
+
+/* Dark Mode Component Enhancements */
+[data-theme="dark"] .prayer-category-segment {
+    background: linear-gradient(135deg, #1e2533 0%, #2d3748 100%);
+    border: 1px solid #4a5568;
+    box-shadow: var(--shadow-md), inset 0 1px 0 rgba(129, 230, 217, 0.1);
+}
+
+[data-theme="dark"] .prayer-category-segment:hover {
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+    border-color: #81e6d9;
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(129, 230, 217, 0.15);
+}
+
+[data-theme="dark"] .prayer-category-segment::before {
+    background: linear-gradient(90deg, #81e6d9, #38b2ac, #319795);
+}
+
+/* Dark Mode Auth Container */
+[data-theme="dark"] #auth-container {
+    background: linear-gradient(135deg, #1e2533 0%, #2d3748 100%);
+    border: 1px solid #4a5568;
+    box-shadow: var(--shadow-md);
+}
+
+/* Dark Mode Button Enhancements */
+[data-theme="dark"] #generate-all-button.primary-action {
+    background: linear-gradient(135deg, #38b2ac 0%, #319795 100%);
+    box-shadow: var(--shadow-lg), 0 0 30px rgba(56, 178, 172, 0.3);
+}
+
+[data-theme="dark"] #generate-all-button.primary-action:hover:not(:disabled) {
+    background: linear-gradient(135deg, #319795 0%, #2c7a7b 100%);
+    box-shadow: var(--shadow-lg), 0 0 40px rgba(56, 178, 172, 0.4);
+}
+
+[data-theme="dark"] #save-prayer-button.save-action {
+    background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+    box-shadow: var(--shadow-lg), 0 0 30px rgba(245, 101, 101, 0.3);
+}
+
+[data-theme="dark"] #save-prayer-button.save-action:hover:not(:disabled) {
+    background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+    box-shadow: var(--shadow-lg), 0 0 40px rgba(245, 101, 101, 0.4);
+}
+
+/* Dark Mode Audio Controls */
+[data-theme="dark"] #audio-controls {
+    background: linear-gradient(135deg, #1e2533 0%, #2d3748 100%);
+    border: 1px solid #4a5568;
+    box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] #playAudioBtn {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(129, 230, 217, 0.1);
+}
+
+[data-theme="dark"] #playAudioBtn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(129, 230, 217, 0.2);
+}
+
+/* Dark Mode Calendar */
+[data-theme="dark"] .calendar {
+    background: linear-gradient(135deg, #1e2533 0%, #2d3748 100%);
+    border: 1px solid #4a5568;
+    box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] #calendar-header {
+    background: linear-gradient(135deg, #1e2533 0%, #2d3748 100%);
+    border: 1px solid #4a5568;
+    box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] .calendar-day.has-prayer {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    border: 2px solid #68d391;
+    color: #0f1419;
+    font-weight: 700;
+    box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .calendar-day.has-prayer:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-lg), 0 0 15px rgba(72, 187, 120, 0.4);
+}
+
+[data-theme="dark"] .calendar-day.has-prayer::after {
+    color: #0f1419;
+}
+
+/* Dark Mode Modals */
+[data-theme="dark"] .modal {
+    background: rgba(15, 20, 25, 0.8);
+    backdrop-filter: blur(8px);
+}
+
+[data-theme="dark"] .modal-content {
+    background: linear-gradient(135deg, #1e2533 0%, #2d3748 100%);
+    border: 1px solid #4a5568;
+    box-shadow: var(--shadow-lg), 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+/* Dark Mode Settings */
+[data-theme="dark"] #category-settings-list {
+    background: #2d3748;
+    border: 1px solid #4a5568;
+}
+
+[data-theme="dark"] #category-settings-list li {
+    background: linear-gradient(135deg, #1e2533 0%, #2d3748 100%);
+    border: 1px solid #4a5568;
+}
+
+[data-theme="dark"] #category-settings-list li:hover {
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+    border-color: #81e6d9;
+    box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] #category-settings-instruction {
+    background: rgba(129, 230, 217, 0.1);
+    border-left: 4px solid #81e6d9;
+}
+
+/* Dark Mode Reflection Areas */
+[data-theme="dark"] .reflection-area {
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+    border: 1px solid #4a5568;
+}
+
+[data-theme="dark"] .reflection-textarea {
+    background: #1a202c;
+    border: 2px solid #4a5568;
+    color: #f7fafc;
+}
+
+[data-theme="dark"] .reflection-textarea:focus {
+    border-color: #81e6d9;
+    box-shadow: 0 0 0 3px rgba(129, 230, 217, 0.2);
+}
+
+[data-theme="dark"] .saved-reflection {
+    background: linear-gradient(90deg, #2d3748 0%, #1e2533 100%);
+    border-left: 4px solid #ed8936;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Dark Mode Scripture Links */
+[data-theme="dark"] .scripture-link {
+    background: rgba(129, 230, 217, 0.15);
+    color: #81e6d9;
+}
+
+[data-theme="dark"] .scripture-link:hover {
+    background: rgba(129, 230, 217, 0.25);
+    border-bottom-color: #b2f5ea;
+}
+
+/* Dark Mode About Section */
+[data-theme="dark"] #about-broken-altar {
+    background: linear-gradient(135deg, #1e2533 0%, #2d3748 100%);
+    border: 1px solid #4a5568;
+    box-shadow: var(--shadow-lg);
+}
+
+[data-theme="dark"] #about-broken-altar::before {
+    background: linear-gradient(90deg, #81e6d9, #38b2ac, #f56565);
+}
+
+[data-theme="dark"] #about-broken-altar .poem-quote {
+    background: linear-gradient(90deg, rgba(129, 230, 217, 0.08), transparent);
+    border-left: 4px solid #81e6d9;
+}
+
+/* Dark Mode Footer */
+[data-theme="dark"] footer {
+    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+    border: 1px solid #4a5568;
+}
+
+/* Dark Mode Loading Animation */
+[data-theme="dark"] .loading-text::before {
+    border-top: 2px solid #81e6d9;
+}
+
+/* Dark Mode Focus States */
+[data-theme="dark"] *:focus {
+    outline: 2px solid #81e6d9;
+}
+
+/* Dark Mode Saved Prayers Section */
+[data-theme="dark"] .saved-prayers-section {
+    background: linear-gradient(135deg, #1e2533 0%, #2d3748 100%);
+    border: 1px solid #4a5568;
+    box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] #recalled-prayer-container,
+[data-theme="dark"] #recalled-prayer-list-container {
+    background: linear-gradient(135deg, #1e2533 0%, #2d3748 100%);
+    border: 1px solid #4a5568;
+    box-shadow: var(--shadow-md);
+}
+
+[data-theme="dark"] #recalled-prayer-list li {
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+    border: 1px solid #4a5568;
+}
+
+[data-theme="dark"] #recalled-prayer-list li:hover {
+    background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+    border-color: #81e6d9;
+    box-shadow: var(--shadow-sm), 0 0 10px rgba(129, 230, 217, 0.15);
+}
+
+/* Dark Mode Method Subheader */
+[data-theme="dark"] #prayer-method-subheader {
+    background: linear-gradient(135deg, #1e2533 0%, #2d3748 100%);
+    border: 1px solid #4a5568;
+    box-shadow: var(--shadow-sm);
 }
 
 /* Enhanced mobile responsiveness */
@@ -826,7 +1064,19 @@ body {
 
 /* Smooth transitions for theme switching */
 * {
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+               color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+               border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+               box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark mode transition enhancements */
+[data-theme="dark"] * {
+    transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+               color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+               border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+               box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+               transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Additional spacing utilities */
