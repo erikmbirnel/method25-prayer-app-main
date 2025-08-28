@@ -1,0 +1,880 @@
+:root {
+    /* Refined Color Palette */
+    --background-primary: #fafafa;
+    --background-secondary: #ffffff;
+    --background-tertiary: #f8f9fa;
+    --background-modal: #ffffff;
+    --background-banner: #F7F6F0;
+    --background-card: #ffffff;
+    --background-gradient: linear-gradient(135deg, #fafafa 0%, #f0f2f5 100%);
+
+    /* Improved Typography Colors */
+    --text-primary: #1a202c;
+    --text-secondary: #4a5568;
+    --text-tertiary: #718096;
+    --text-accent: #4299e1;
+    --text-on-button-primary: #ffffff;
+    --text-on-button-secondary: #ffffff;
+    --text-on-button-special: #ffffff;
+    --text-on-settings-button: #4a5568;
+
+    /* Enhanced Border System */
+    --border-primary: #e2e8f0;
+    --border-secondary: #edf2f7;
+    --border-modal: #cbd5e0;
+    --border-focus: #4299e1;
+
+    /* Spiritual Color Palette */
+    --button-primary-bg: #4299e1;
+    --button-primary-hover-bg: #3182ce;
+    --button-secondary-bg: #718096;
+    --button-secondary-hover-bg: #4a5568;
+    --button-special-red-bg: #e53e3e;
+    --button-special-red-hover-bg: #c53030;
+    --button-settings-bg: #f7fafc;
+    --button-settings-hover-bg: #edf2f7;
+    --button-play-bg: #2d3748;
+    --button-play-hover-bg: #4a5568;
+
+    /* Link Colors */
+    --link-primary: #4299e1;
+    --link-hover: #3182ce;
+
+    /* Status Colors */
+    --highlight-green: #c6f6d5;
+    --highlight-green-border: #38a169;
+    --highlight-yellow-border: #d69e2e;
+    --drag-handle-color: #a0aec0;
+    --subheader-color: #4a5568;
+    --svg-banner-filter: none;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+
+    /* Spacing Scale */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-12: 3rem;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 0;
+    padding: var(--space-4) var(--space-6);
+    background: var(--background-gradient);
+    color: var(--text-primary);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container for better max-width control */
+.app-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.app-banner-container {
+    text-align: center;
+    margin-bottom: var(--space-8);
+    padding: var(--space-4) 0;
+}
+
+#app-banner-svg {
+    width: min(60%, 400px);
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    filter: var(--svg-banner-filter);
+    transition: transform 0.3s ease;
+}
+
+#app-banner-svg:hover {
+    transform: scale(1.02);
+}
+
+#prayer-container {
+    margin-bottom: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+/* Card-based prayer segments */
+.prayer-category-segment {
+    background: var(--background-card);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.prayer-category-segment::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--button-primary-bg), var(--text-accent));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.prayer-category-segment:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-focus);
+}
+
+.prayer-category-segment:hover::before {
+    opacity: 1;
+}
+
+.prayer-category-segment h3 {
+    margin: 0 0 var(--space-4) 0;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.25rem;
+    letter-spacing: -0.025em;
+}
+
+.prayer-category-segment .prayer-text {
+    line-height: 1.7;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-6);
+    font-weight: 400;
+}
+
+.prayer-category-segment .loading-text {
+    color: var(--text-tertiary);
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.prayer-category-segment .loading-text::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border-primary);
+    border-top: 2px solid var(--button-primary-bg);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* --- Enhanced Button System --- */
+.action-button {
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 0.95rem;
+    background-color: var(--button-primary-bg);
+    color: var(--text-on-button-primary);
+    padding: var(--space-3) var(--space-6);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    letter-spacing: 0.025em;
+}
+
+.action-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.action-button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.action-button:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+.action-button:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+.action-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.action-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.rerandomize-button {
+    background-color: var(--button-primary-bg);
+    padding: var(--space-4) var(--space-6);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.back-button {
+    background-color: var(--button-secondary-bg);
+    padding: var(--space-4) var(--space-6);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.reflection-button {
+    background-color: var(--button-special-red-bg);
+    padding: var(--space-4) var(--space-6);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Enhanced button container */
+.category-button-container {
+    display: flex;
+    gap: var(--space-3);
+    width: 100%;
+    margin-top: var(--space-4);
+    flex-wrap: wrap;
+}
+
+.category-button-container .action-button {
+    flex: 1 1 auto;
+    min-width: 120px;
+    margin: 0;
+    white-space: nowrap;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .category-button-container {
+        flex-direction: column;
+    }
+    
+    .category-button-container .action-button {
+        flex: none;
+        width: 100%;
+        min-width: auto;
+    }
+}
+
+/* --- Primary Action Buttons --- */
+#generate-all-button.primary-action {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, var(--button-primary-bg), var(--text-accent));
+    color: var(--text-on-button-primary);
+    padding: var(--space-6) var(--space-8);
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-8);
+    box-sizing: border-box;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    letter-spacing: 0.025em;
+}
+
+#generate-all-button.primary-action:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--button-primary-hover-bg), var(--button-primary-bg));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+#save-prayer-button.save-action {
+    background: linear-gradient(135deg, var(--button-special-red-bg), #f56565);
+    color: var(--text-on-button-special);
+    padding: var(--space-6) var(--space-8);
+    font-size: 1.125rem;
+    font-weight: 600;
+    box-sizing: border-box;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    letter-spacing: 0.025em;
+}
+
+#save-prayer-button.save-action:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--button-special-red-hover-bg), var(--button-special-red-bg));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+#view-calendar-button.view-saved-action {
+    background-color: var(--button-secondary-bg);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* --- Button Hover States --- */
+.rerandomize-button:hover:not(:disabled) {
+    background-color: var(--button-primary-hover-bg);
+}
+
+.back-button:hover:not(:disabled) {
+    background-color: var(--button-secondary-hover-bg);
+}
+
+.reflection-button:hover:not(:disabled) {
+    background-color: var(--button-special-red-hover-bg);
+}
+
+#view-calendar-button.view-saved-action:hover:not(:disabled) {
+    background-color: var(--button-secondary-hover-bg);
+}
+
+/* --- Auth Area Styling --- */
+.auth-button { /* For login button specifically if it needs different base from action-button */
+    padding: 8px 15px;
+    background-color: var(--button-primary-bg);
+}
+#auth-container {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    overflow: auto; /* To contain floated elements */
+}
+
+#login-prompt-message {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    border: 1px solid var(--border-primary);
+    padding: 10px;
+    max-width: 400px; /* Adjust as needed */
+    margin: 0 auto;
+}
+
+.calendar-day {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid var(--border-secondary);
+    cursor: default;
+}
+
+.calendar-day.has-prayer {
+    background-color: var(--highlight-green);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    max-width: 400px; /* Match calendar width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#recalled-prayer-container {
+    border: 1px solid var(--border-primary);
+    padding: 15px;
+    margin-top: 20px;
+    background-color: var(--background-tertiary);
+}
+
+#recalled-prayer-container h3 {
+    margin-top: 0;
+}
+
+#recalled-prayer-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#recalled-prayer-list li {
+    padding: 8px;
+    border-bottom: 1px solid var(--border-secondary);
+    cursor: pointer;
+}
+#recalled-prayer-list li:hover {
+    background-color: var(--background-primary); /* Use primary bg for hover */
+}
+
+.reflection-area { /* Container for textarea and its save button */
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Stack children vertically */
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.reflection-textarea {
+    width: 100%; /* Take full width of its container */
+    min-height: 80px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid var(--border-primary);
+    border-radius: 4px;
+    font-family: sans-serif;
+    font-size: 1em; /* Adjusted slightly for consistency */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.reflection-textarea.frozen {
+    font-style: italic;
+    color: var(--text-accent);
+    background-color: transparent; /* Make background transparent */
+    border-color: transparent; /* Make border transparent */
+    resize: none; /* Optional: prevent resizing when frozen */
+    /* The existing padding will still apply, giving some space around the text */
+}
+
+.lock-reflection-button { /* Renamed from .save-reflection-button */
+    align-self: flex-end; /* Align button to the right within the flex container */
+    margin-bottom: 5px; /* Add space below the button */
+    padding: 8px 15px; /* Adjust padding for better click area */
+    font-size: 0.85em;
+}
+
+.saved-reflection {
+    background-color: var(--background-tertiary);
+    padding: 8px;
+    margin-top: 5px;
+    border-left: 3px solid var(--highlight-yellow-border);
+    font-style: italic;
+}
+
+/* --- Close Recalled Prayer Button --- */
+#close-recalled-prayer-button {
+    background-color: var(--button-secondary-bg);
+    font-size: 1.1em; /* Match other prominent secondary buttons */
+    display: block; /* Make it take full width of its container */
+    width: 100%;
+    margin-top: 20px; /* Add some space above it */
+    box-sizing: border-box; /* Ensure padding doesn't expand width beyond 100% */
+}
+
+#close-recalled-prayer-button:hover:not(:disabled) {
+    background-color: var(--button-secondary-hover-bg);
+}
+
+/* --- Back to Calendar from List Button --- */
+#back-to-calendar-from-list-button {
+    background-color: #95a5a6; /* A slightly different grey or neutral color */
+    display: block; /* Make it take full width */
+    width: 100%;
+    margin-top: 15px; /* Space above the button */
+    box-sizing: border-box;
+}
+/* Add this to your style.css */
+.scripture-link {
+    color: var(--link-primary);
+    text-decoration: underline;
+    cursor: pointer;
+}
+.scripture-link:hover {
+    color: var(--link-hover);
+}
+.scripture-references {
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: var(--background-modal);
+    margin: 10% auto; /* 10% from the top and centered */
+    padding: 20px;
+    border: 1px solid var(--border-modal);
+    width: 80%; 
+    max-width: 600px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    border-radius: 5px;
+    position: relative;
+}
+
+.close-button {
+    color: var(--drag-handle-color); /* Use drag handle color for consistency */
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--text-primary);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#scripture-modal-body h2 { /* Style for ESV's h2 */
+    font-size: 1.2em;
+    margin-top: 0;
+}
+
+.esv-attribution {
+    font-size: 0.85em;
+    font-style: italic;
+    text-align: right;
+    margin-top: 1em;
+    color: var(--text-secondary);
+}
+
+.external-context-link-container {
+    text-align: right;
+    margin-top: 20px; /* Space above the link */
+    font-size: 0.85em;
+}
+
+.external-context-link-container a { /* Target the <a> tag within the container */
+    color: var(--link-primary);
+    text-decoration: underline;
+}
+.external-context-link-container a:hover {
+    color: var(--link-hover);
+}
+
+/* --- Settings Button --- */
+#settings-button {
+    background-color: var(--button-settings-bg);
+    border-radius: 5px;
+    color: var(--text-on-settings-button);
+}
+
+/* --- Settings Modal --- */
+#category-settings-list li {
+    padding: 8px 5px;
+    border-bottom: 1px solid var(--border-secondary);
+    display: flex;
+    align-items: center;
+}
+
+#category-settings-list li:last-child {
+    border-bottom: none;
+}
+
+#category-settings-list input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2); /* Make checkbox slightly larger */
+}
+
+#category-settings-list .drag-handle { /* Placeholder for drag functionality */
+    cursor: grab;
+    margin-right: 10px;
+    color: var(--drag-handle-color);
+}
+
+#settings-modal .modal-content {
+    margin: 5% auto; /* Adjust margin for potentially taller content */
+}
+
+.sortable-ghost { /* Class for the SortableJS dragging placeholder */
+    opacity: 0.4;
+    background: #c8ebfb; /* Light blue background for placeholder */
+}
+/* Style for list items when dragging is disabled for a mode */
+#category-settings-list li.no-drag .drag-handle {
+    display: none;
+}
+
+
+/* --- Audio Controls --- */
+#audio-controls {
+    margin-top: 15px;
+    text-align: center;
+    /* Audio controls are now always visible */
+}
+
+#audio-controls .action-button {
+    /* Inherits general action-button styles */
+}
+
+#playAudioBtn {
+    background-color: var(--button-play-bg);
+    display: block; /* Make it a block element */
+    width: 100%; /* Make it take full width */
+    padding: 24px; /* Match padding of save/generate buttons */
+    font-size: 1.2em; /* Match font-size of save/generate buttons */
+}
+
+#pauseAudioBtn {
+    background-color: var(--button-secondary-bg); /* Using secondary, can be new var */
+}
+
+#stopAudioBtn {
+    background-color: var(--button-special-red-bg);
+}
+
+#prayer-method-subheader {
+    text-align: center;
+    font-size: 1.1em; /* Or your preferred size */
+    color: var(--subheader-color);
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-weight: normal; /* Optional: if you want it less bold than a default h2 */
+}
+
+/* --- About Broken Altar Section --- */
+#about-broken-altar {
+  margin-top: 30px;    /* Space above this section */
+  margin-bottom: 30px; /* Space below this section, before copyright */
+  padding: 20px;
+  background-color: var(--background-secondary);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07); /* Subtle shadow */
+  line-height: 1.6; /* Improve readability for paragraphs in this section */
+}
+
+#about-broken-altar h3 {
+  font-size: 1.6em;   /* Prominent heading size, adjust as needed to match "My Saved Prayers" look */
+  color: var(--text-primary);
+  margin-top: 0;
+  margin-bottom: 15px; /* Space after the heading */
+}
+
+#about-broken-altar p {
+  margin-bottom: 12px; /* Space between paragraphs */
+  color: var(--text-primary);
+}
+
+#about-broken-altar p:last-of-type { /* Target the last paragraph specifically */
+  margin-bottom: 0;
+}
+
+#about-broken-altar .poem-quote {
+  font-style: italic;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  margin-left: 20px;   /* Indent the quote */
+  padding-left: 15px;
+  border-left: 3px solid var(--text-accent);
+  color: var(--text-secondary);
+}
+
+#about-broken-altar .poem-quote p {
+  margin-bottom: 0; /* Remove default paragraph margin within the quote */
+}
+
+/* Ensure poem title "The Altar" is italicized if not already by <em> */
+#about-broken-altar em {
+  font-style: italic;
+}
+
+/* Dark Mode Overrides */
+[data-theme="dark"] {
+    --background-primary: #1e1e1e;
+    --background-secondary: #2a2a2a;
+    --background-tertiary: #333333;
+    --background-modal: #383838;
+    --background-banner: #2a2a2a; /* Darker background for SVG if not using filter */
+
+    --text-primary: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --text-accent: #61dafb; /* Lighter blue for accent */
+    --text-on-button-primary: #e0e0e0;
+    --text-on-button-secondary: #e0e0e0;
+    --text-on-button-special: #e0e0e0;
+    --text-on-settings-button: #e0e0e0;
+
+    --border-primary: #555555;
+    --border-secondary: #444444;
+    --border-modal: #666666;
+
+    --button-primary-bg: #007bff; /* Brighter blue for dark mode */
+    --button-primary-hover-bg: #0056b3;
+    --button-secondary-bg: #5a6268; 
+    --button-secondary-hover-bg: #494f54;
+    --button-special-red-bg: #C41E3A; /* Red can often stay, or be slightly desaturated */
+    --button-special-red-hover-bg: #A01729;
+    --button-settings-bg: #4f4f4f;
+    --button-settings-hover-bg: #5a5a5a;
+    --button-play-bg: #555;
+    --button-play-hover-bg: #777;
+
+    --link-primary: #61dafb;
+    --link-hover: #82eaff;
+
+    --highlight-green: #3a703a; /* Darker green */
+    --highlight-yellow-border: #b8860b; /* Darker yellow */
+    --drag-handle-color: #888;
+    --subheader-color: #c0c0c0;
+
+    /* Example filter for the SVG banner in dark mode. This will need tuning. */
+    /* It tries to invert light areas and adjust colors. */
+    /* If the SVG background is #F7F6F0, this might make it dark. */
+    --svg-banner-filter: invert(0.9) hue-rotate(180deg) brightness(1.2) contrast(0.8);
+}
+
+/* Enhanced mobile responsiveness */
+@media (max-width: 768px) {
+    body {
+        padding: var(--space-3) var(--space-4);
+    }
+    
+    .prayer-category-segment {
+        padding: var(--space-4);
+    }
+    
+    .prayer-category-segment h3 {
+        font-size: 1.125rem;
+    }
+    
+    .prayer-category-segment .prayer-text {
+        font-size: 1.05rem;
+    }
+    
+    #about-broken-altar {
+        padding: var(--space-6);
+    }
+    
+    #about-broken-altar h3 {
+        font-size: 1.5rem;
+    }
+    
+    .modal-content {
+        padding: var(--space-6);
+    }
+}
+
+@media (max-width: 480px) {
+    #app-banner-svg {
+        width: 80%;
+    }
+    
+    .prayer-category-segment .prayer-text {
+        font-size: 1rem;
+    }
+    
+    #generate-all-button.primary-action,
+    #save-prayer-button.save-action,
+    #playAudioBtn {
+        font-size: 1rem;
+        padding: var(--space-4) var(--space-6);
+    }
+}
+
+/* Loading animations */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.loading-text {
+    animation: pulse 2s infinite;
+}
+
+/* Focus improvements for accessibility */
+*:focus {
+    outline: 2px solid var(--border-focus);
+    outline-offset: 2px;
+}
+
+/* Smooth transitions for theme switching */
+* {
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Additional spacing utilities */
+.saved-prayers-section {
+    background: var(--background-card);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-top: var(--space-8);
+    box-shadow: var(--shadow-sm);
+}
+
+#my-saved-prayers-heading {
+    margin: 0 0 var(--space-6) 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Footer improvements */
+footer {
+    margin-top: var(--space-12);
+    padding: var(--space-8) var(--space-4);
+    text-align: center;
+    color: var(--text-tertiary);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    background: var(--background-tertiary);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-secondary);
+}
+
+footer p {
+    margin-bottom: var(--space-4);
+}
+
+footer p:last-child {
+    margin-bottom: 0;
+}
+
+/* Error states */
+.error-message {
+    color: var(--button-special-red-bg) !important;
+    font-weight: 500;
+}
+
+/* Success states */
+.success-message {
+    color: var(--highlight-green-border) !important;
+    font-weight: 500;
+}
